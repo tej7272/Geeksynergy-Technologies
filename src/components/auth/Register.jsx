@@ -11,6 +11,7 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [profession, setProfession] = useState("");
     const [error, setError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
 
     const navigate = useNavigate();
 
@@ -34,6 +35,12 @@ const Register = () => {
             return false;
         }
         setError(false);
+
+        if(!email.includes('@gmail.com')){
+            setError(true)
+            setEmailError(true);
+            return false;
+        }
 
         const userData = {
             name,
@@ -60,7 +67,7 @@ const Register = () => {
 
                     <label htmlFor="email">Email</label>
                     <input className='inputBox' id="email" type='text' placeholder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                    {error && !email &&<span className='invalid-input'>Enter vaild a email</span>}
+                    {error && (!email || emailError) &&<span className='invalid-input'>Enter vaild a email</span>}
                     
                     <label htmlFor="Phone">Phone Number</label>
                     <input className='inputBox' id="phone" type='text' placeholder='Enter Phone Number' name='phone' value={phone} onChange={handleInputChange} />
